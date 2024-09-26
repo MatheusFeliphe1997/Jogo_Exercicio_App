@@ -12,7 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -43,18 +44,18 @@ class MainActivity : ComponentActivity() {
 fun LayoutMain() {
     val players = remember { mutableStateListOf(Jogador(), Jogador(), Jogador(), Jogador(), Jogador(), Jogador()) }
 
-    Column(modifier = Modifier
+    LazyColumn(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)) {
-        players.forEachIndexed { index, player ->
-            PlayerCard(player, index)
+        items(players){player ->
+            PlayerCard(player)
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
 
 @Composable
-fun PlayerCard(player: Jogador, index: Int) {
+fun PlayerCard(player: Jogador) {
     var name by remember { mutableStateOf(player.nome) }
     var level by remember { mutableStateOf(player.level) }
     var equipmentBonus by remember { mutableStateOf(player.equipmentBonus) }
